@@ -40,13 +40,9 @@
 
   if (nav) {
     const path = window.location.pathname;
-    const section = path.includes("/gobierno/") ? "gobierno" : path.includes("/empresas/") ? "empresas" : null;
-    if (section) {
-      nav.querySelectorAll("a").forEach((link) => {
-        if (link.pathname.endsWith(`/${section}/index.html`)) {
-          link.setAttribute("aria-current", "page");
-        }
-      });
+    const isServicios = path.includes("/gobierno/") || path.includes("/empresas/") || path.includes("/servicios/");
+    if (isServicios) {
+      nav.querySelector('[data-nav-link="servicios"]')?.setAttribute("aria-current", "page");
     }
   }
 
@@ -100,5 +96,155 @@
     });
 
     update();
+  });
+
+  // Transparent video: the source file stacks a color frame on top and its
+  // black/white alpha mask below. WebGL reads both halves and composites
+  // real transparency onto a <canvas>, which works even on Safari/iOS
+  // (unlike alpha-channel WebM, which only Chrome/Firefox understand).
+  // Falls back silently to the static <img> already in the markup when
+  // WebGL is unavailable or the visitor prefers reduced motion.
+  //
+  // The video is never fetched, decoded, or drawn until its holder is
+  // actually visible (either it has no carousel ancestor, or its slide's
+  // aria-hidden flips to "false"), and playback + the draw loop both pause
+  // again the moment the slide is swiped away — otherwise this would burn
+  // bandwidth and GPU forever on a slide nobody is looking at.
+  document.querySelectorAll("[data-transparent-video]").forEach((holder) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const fallbackImg = holder.querySelector("img");
+    const src = holder.dataset.transparentVideo;
+    const slide = holder.closest(".carousel__slide");
+
+    const canvas = document.createElement("canvas");
+    if (fallbackImg) {
+      canvas.setAttribute("role", "img");
+      canvas.setAttribute("aria-label", fallbackImg.alt);
+    }
+
+    const gl = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false })
+      || canvas.getContext("experimental-webgl", { alpha: true, premultipliedAlpha: false });
+    if (!gl) return;
+
+    const vsSource = `
+      attribute vec2 aPos;
+      varying vec2 vUv;
+      void main() {
+        vUv = aPos * 0.5 + 0.5;
+        gl_Position = vec4(aPos, 0.0, 1.0);
+      }`;
+    const fsSource = `
+      precision mediump float;
+      varying vec2 vUv;
+      uniform sampler2D uTex;
+      void main() {
+        float y = 1.0 - vUv.y;
+        vec2 colorUv = vec2(vUv.x, y * 0.5);
+        vec2 alphaUv = vec2(vUv.x, y * 0.5 + 0.5);
+        vec3 color = texture2D(uTex, colorUv).rgb;
+        float a = texture2D(uTex, alphaUv).r;
+        gl_FragColor = vec4(color, a);
+      }`;
+
+    const compile = (type, source) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return shader;
+    };
+
+    const program = gl.createProgram();
+    gl.attachShader(program, compile(gl.VERTEX_SHADER, vsSource));
+    gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fsSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const quad = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, quad, gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, "aPos");
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const w = Math.round(canvas.clientWidth * dpr);
+      const h = Math.round(canvas.clientHeight * dpr);
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        gl.viewport(0, 0, w, h);
+      }
+    };
+
+    let video = null;
+    let rafId = null;
+
+    const draw = () => {
+      if (video.readyState >= video.HAVE_CURRENT_DATA) {
+        resize();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      rafId = requestAnimationFrame(draw);
+    };
+
+    const pause = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      video?.pause();
+    };
+
+    const resume = () => {
+      if (!video) return;
+      video.play().catch(() => {});
+      if (rafId === null) rafId = requestAnimationFrame(draw);
+    };
+
+    const isVisible = () => !slide || slide.getAttribute("aria-hidden") !== "true";
+
+    const activate = () => {
+      if (video) { resume(); return; }
+      video = document.createElement("video");
+      video.src = src;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;";
+      document.body.appendChild(video);
+      video.addEventListener("loadeddata", () => {
+        // Only swap in the canvas once the video can actually play — the
+        // static image stays up (and nothing shifts) if playback ever fails.
+        holder.replaceChildren(canvas);
+        resume();
+      });
+      video.load();
+    };
+
+    if (slide) {
+      new MutationObserver(() => {
+        if (isVisible()) activate();
+        else pause();
+      }).observe(slide, { attributes: true, attributeFilter: ["aria-hidden"] });
+    }
+
+    if (isVisible()) activate();
   });
 })();

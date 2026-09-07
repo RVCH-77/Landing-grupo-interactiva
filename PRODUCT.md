@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Static HTML/CSS/JS, multi-page (no framework, no build step), served via XAMPP/Apache. Confirmed 2026-08-26: full multi-page site (home + two audience hubs + shared service pages), not a single-page site. Revised 2026-08-30: the client supplied an actual design reference (`Ginteractiva.pdf`, a single tall exported canvas) showing the Gobierno/Empresas hubs as an in-page carousel (arrows + dot pagination) covering all 5 audience-specific services with full content per slide, not a list linking out to 5 separate detail pages. The 5 per-audience detail pages were deleted and their content folded into the carousel slides on `gobierno/index.html` / `empresas/index.html`; the 3 shared service pages (Producción de Video, Estrategia y Marketing Digital, Contact Center) remain standalone since their content (video grid, checklist, domain-search tool) doesn't fit the carousel's image+text pattern.
+Static HTML/CSS/JS, no framework, no build step, served via XAMPP/Apache. Confirmed 2026-08-26: full multi-page site. Revised 2026-08-30: the client supplied an actual design reference (`Ginteractiva.pdf`) showing the Gobierno/Empresas carousels (arrows + dot pagination, full content per slide). Revised again 2026-09-05: the client asked for those carousels to live inline on the home page instead of on separate `/gobierno/` and `/empresas/` pages — "ya no va a ir en otra página." Both pages were deleted; the site is now a single primary page (`index.html`) carrying the hero, GIM Neuroscience/Analytics, Quiénes somos, the Gobierno services carousel (`#servicios`), the Empresas services carousel (`#servicios-empresas`), an Experiencia/portfolio placeholder (`#experiencia`, ex-"Trabajo seleccionado," repositioned below both carousels — content still pending from the client), Clientes, and Contacto — plus the 3 shared service pages (Producción de Video, Estrategia y Marketing Digital, Contact Center under `servicios/`), which remain standalone since their content (video grid, checklist, domain-search tool) doesn't fit the carousel's image+text pattern.
 
 ## Users
 
@@ -36,10 +36,11 @@ The client supplied the actual information architecture and copy via a slide dec
 
 ## Capabilities and Constraints
 
-Confirmed site structure (2026-08-26):
+Confirmed site structure (2026-08-26, revised 2026-09-05 — see Stack for the page-consolidation history):
 
-- **Root / always-visible** (per the client's own red/blue color-coding in the brief): Home, phone CTA `(477) 175-74-78`, Instagram (`instagram.com/grupointeractiva`), YouTube channel, an institutional background video, GIM Neuroscience callout+link, GIM Analytics callout+link, Quiénes Somos.
-- **Gobierno hub** (slogan: "¡Te ayudamos a gobernar con inteligencia y efectividad!") and **Empresas hub** (slogan: "¡Te apoyamos a conectar y vender con inteligencia y efectividad!"), each fanning into the same 8 service categories, worded per audience:
+- **Nav** (all pages, uppercase, current item shown in solid brand red, no phone number in the header per 2026-09-05 request): INICIO (`index.html`), NOSOTROS (`#quienes-somos`), SERVICIOS (`#servicios` on the home page; still marked active on the 3 `servicios/*.html` pages), EXPERIENCIA (`#experiencia`), CONTACTO (`#contacto`).
+- **Root / always-visible**: phone CTA `(477) 175-74-78` (now only in the closing Contacto band, not the header), Instagram (`instagram.com/grupointeractiva`), YouTube channel, an institutional background video, GIM Neuroscience callout+link, GIM Analytics callout+link, Quiénes Somos.
+- **Gobierno carousel** (`#servicios`, slogan: "¡Te ayudamos a gobernar con inteligencia y efectividad!") and **Empresas carousel** (`#servicios-empresas`), both inline on the home page one after another, each fanning into the same 8 service categories, worded per audience:
   1. Hostess Virtuales (generative-AI voice/text agents, not chatbots — 24/7, multilingual, inbound+outbound)
   2. Neuropolítica (Gobierno) / Neurociencia aplicada a empresas (Empresas) — includes three measurement types: tracking emocional, tracking visual, tracking neuronal
   3. Recuperación de cartera vencida (Gobierno version adds "y pago de impuestos")

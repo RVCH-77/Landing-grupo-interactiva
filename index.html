@@ -49,15 +49,12 @@
 
     <nav class="primary-nav" id="primary-nav" data-nav aria-label="Navegación principal">
       <ul>
-        <li><a href="gobierno/index.html">Gobierno</a></li>
-        <li><a href="empresas/index.html">Empresas</a></li>
-        <li><a href="#quienes-somos">Quiénes somos</a></li>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#quienes-somos">Nosotros</a></li>
+        <li><a href="#servicios" data-nav-link="servicios">Servicios</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
-      <a class="header-phone" href="tel:+524771757478">
-        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 3h3l1.5 4L6.5 8.5a10 10 0 006 6L14 12.5l4 1.5v3a1.5 1.5 0 01-1.6 1.5A15 15 0 013 4.6 1.5 1.5 0 014 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        <span>(477) 175-74-78</span>
-      </a>
     </nav>
   </div>
 </header>
@@ -73,21 +70,7 @@
       <div class="hero__duo" aria-hidden="true"></div>
     </div>
 
-    <div class="hero__content">
-      <h1 class="hero__title">
-        No especulamos.<br>
-        No improvisamos.
-      </h1>
-      <p class="hero__subtitle">
-        Comunicación, branding, marketing e inteligencia con datos y neurociencia — para Gobierno y Empresas. Empresa 100% mexicana.
-      </p>
-      <div class="hero__actions">
-        <a class="btn btn--primary" href="#contacto">Hablemos</a>
-        <a class="btn btn--ghost" href="#audiencia">Ver servicios</a>
-      </div>
-    </div>
-
-    <a class="hero__scroll-cue" href="#audiencia" aria-label="Ir a servicios">
+    <a class="hero__scroll-cue" href="#servicios" aria-label="Ir a servicios">
       <span>Desplázate</span>
       <svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M7 1V21M7 21L1 15M7 21L13 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -124,13 +107,231 @@
         Somos tu <strong>socio estratégico</strong> en comunicación y posicionamiento, inteligencia artificial y analíticas avanzadas, hostess virtuales, centro de contacto, investigación de mercados objetiva y subjetiva, neuropolítica y neurociencia aplicada a empresas, impulsando tu impacto y resultados a través de soluciones innovadoras, tecnología de punta y basadas en datos.
       </p>
       <div class="about__pills">
-        <a class="btn btn--primary" href="gobierno/index.html">Gobierno servicios</a>
-        <a class="btn btn--primary" href="empresas/index.html">Empresas servicios</a>
+        <a class="btn btn--primary" href="#servicios">Gobierno servicios</a>
+        <a class="btn btn--primary" href="#servicios-empresas">Empresas servicios</a>
       </div>
     </div>
   </section>
 
-  <section class="portfolio" id="trabajo">
+  <section class="carousel" data-carousel id="servicios">
+    <div class="carousel__head">
+      <button class="carousel__arrow carousel__arrow--prev" type="button" data-carousel-prev aria-label="Servicio anterior">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 4l-8 8 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2 class="carousel__title">Gobierno servicios</h2>
+      <button class="carousel__arrow carousel__arrow--next" type="button" data-carousel-next aria-label="Siguiente servicio">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="carousel__viewport">
+      <div class="carousel__track" data-carousel-track>
+
+        <article class="carousel__slide">
+          <div class="carousel__media"><img src="assets/img/hostess.png" alt="Hostess virtual con inteligencia artificial generativa"></div>
+          <div class="carousel__body">
+            <h3>Hostess Virtuales</h3>
+            <p>Automatizamos la cercanía con la ciudadanía a través de nuestros hostess virtuales, que atienden y resuelven la atención al instante, 24/7. No son chat bots: es como si te atendiera una persona, pero en lugar de ser un humano, es inteligencia artificial generativa. Interactúan vía texto y voz (teléfono y/o WhatsApp), resolviendo dudas al instante, sin cansancio ni enojo.</p>
+            <ul class="carousel__list">
+              <li>Disponibilidad total: atienden cualquier volumen de llamadas 24/7</li>
+              <li>Multilingües: comunicación sin barreras de idioma</li>
+              <li>Reducción de costos operativos de call center</li>
+              <li>Aprendizaje continuo: mejoran la calidad de atención con cada interacción</li>
+            </ul>
+            <p class="carousel__subhead">Aplicaciones</p>
+            <ul class="carousel__list">
+              <li>Inbound: llamadas entrantes, atención a ciudadanos</li>
+              <li>Outbound: llamadas salientes, promoción de programas de gobierno o invitaciones a eventos</li>
+            </ul>
+            <p class="carousel__subhead">Ideal para</p>
+            <p class="carousel__note">Gobierno, turismo, campañas, organismos operadores de agua y más.</p>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media" data-transparent-video="assets/videos/cerebro-transparente.mp4">
+            <img src="assets/img/cerebro.png" alt="Modelo 3D animado de un cerebro, mitad malla de datos y mitad orgánico">
+          </div>
+          <div class="carousel__body">
+            <h3>Neuropolítica</h3>
+            <p>Te ayudamos a gobernar con ciencia y no con ocurrencias. No especulamos, ni mucho menos improvisamos: respaldamos cada contenido publicitario con neurociencia para que tus mensajes conecten con la fibra emocional del votante.</p>
+            <ul class="carousel__list">
+              <li>Medición precisa: visualizamos y analizamos datos clave con software y algoritmos de última generación — medimos el consciente y también dimensionamos y cuantificamos el inconsciente colectivo</li>
+              <li>Estrategias y tácticas personalizadas según las reacciones neurofisiológicas (visual, emocional y neuronal) que genera tu campaña o programa gubernamental</li>
+              <li>Psicología de masas: comprensión profunda de motivaciones y necesidades de tus públicos</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media">
+            <span class="carousel__icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 75 L15 55 M35 75 L35 45 M55 75 L55 35 M75 75 L75 20" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M60 20 H80 V40" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 55 L35 45 L55 35 L80 20" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="carousel__body">
+            <h3>Recuperación de cartera vencida y pago de impuestos</h3>
+            <p>Transformamos la recaudación y recuperamos pagos e impuestos en tiempo récord, para que el presupuesto se traduzca en obras, y no en cuentas por cobrar.</p>
+            <ul class="carousel__list">
+              <li>Retorno de inversión de aproximadamente 98% en días o semanas</li>
+              <li>Comunicación rápida, efectiva y segmentada con los públicos de interés</li>
+              <li>Reducción de costo de oportunidad: recursos disponibles más rápido</li>
+            </ul>
+            <p class="carousel__subhead">Ideal para</p>
+            <p class="carousel__note">Impuestos municipales, estatales y federales, organismos operadores de agua, instituciones gubernamentales y financieras, entre otros.</p>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media">
+            <span class="carousel__icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="42" cy="42" r="26" stroke="currentColor" stroke-width="5"/><path d="M61 61 L82 82" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M30 48 L37 38 L45 44 L54 30" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="carousel__body">
+            <h3>Inteligencia de mercados y marketing político estratégico</h3>
+            <p>Impulsa tu impacto y logra tus objetivos de popularidad.</p>
+            <ul class="carousel__list">
+              <li>Medición de percepciones, positivas y negativas, sobre programas y figuras</li>
+              <li>Diseño o análisis de políticas públicas, movimientos legislativos y campañas más rentables en opinión pública</li>
+              <li>Análisis de tendencias y escenarios electorales</li>
+              <li>Diseño, construcción y/o testing de campañas emblema o estratégicas con mínimo margen de error y mayor impacto</li>
+              <li>Estudios cuantitativos y cualitativos</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media">
+            <span class="carousel__icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 85 C50 85 72 62 72 42 A22 22 0 1 0 28 42 C28 62 50 85 50 85 Z" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><circle cx="50" cy="42" r="9" stroke="currentColor" stroke-width="5"/><path d="M18 30 A40 40 0 0 1 18 4" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.6"/><path d="M82 30 A40 40 0 0 0 82 4" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.6"/></svg></span>
+          </div>
+          <div class="carousel__body">
+            <h3>Potencialización de programas gubernamentales</h3>
+            <p>Potencializamos tus campañas o programas a través de mensajes geolocalizados, llegando a los rincones de tu territorio o zonas de interés. Comunicación constante, segmentada e inmediata, sin pasar ni depender de redes sociales.</p>
+            <ul class="carousel__list">
+              <li>Mensaje con imagen o carrusel, disponible solo para Android</li>
+              <li>Mensajes de robot: llamadas automatizadas con audio de 60 segundos, teléfono fijo o móvil</li>
+              <li>Mensaje intrusivo: ocupa la pantalla completa hasta que el usuario presiona "cancelar" o "guardar"</li>
+              <li>Mensaje de texto de hasta 160 caracteres</li>
+              <li>CRM targeting sobre tu propia base de datos</li>
+            </ul>
+            <p class="carousel__subhead">Ideal para</p>
+            <p class="carousel__note">Niveles socioeconómicos bajos, medios y medios-bajos, sin celulares de alta gama, en zonas urbanas o suburbanas sin acceso a internet o con señal limitada.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="carousel__dots" data-carousel-dots></div>
+
+  </section>
+
+  <section class="carousel" data-carousel id="servicios-empresas">
+    <div class="carousel__head">
+      <button class="carousel__arrow carousel__arrow--prev" type="button" data-carousel-prev aria-label="Servicio anterior">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 4l-8 8 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2 class="carousel__title">Empresas servicios</h2>
+      <button class="carousel__arrow carousel__arrow--next" type="button" data-carousel-next aria-label="Siguiente servicio">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="carousel__viewport">
+      <div class="carousel__track" data-carousel-track>
+
+        <article class="carousel__slide">
+          <div class="carousel__media"><img src="assets/img/hostess.png" alt="Hostess virtual con inteligencia artificial generativa"></div>
+          <div class="carousel__body">
+            <h3>Hostess Virtuales</h3>
+            <p>Automatizamos la cercanía con tus públicos a través de nuestros hostess virtuales, que atienden y resuelven la atención al instante, 24/7. No son chat bots: es como si te atendiera una persona, pero en lugar de ser un humano, es inteligencia artificial generativa. Interactúan vía texto y voz (teléfono y/o WhatsApp), resolviendo dudas al instante, sin cansancio ni enojo.</p>
+            <ul class="carousel__list">
+              <li>Disponibilidad total: atienden cualquier volumen de llamadas 24/7</li>
+              <li>Multilingües: comunicación sin barreras de idioma</li>
+              <li>Reducción de costos operativos de call center</li>
+              <li>Aprendizaje continuo: mejoran la calidad de atención con cada interacción</li>
+            </ul>
+            <p class="carousel__subhead">Aplicaciones</p>
+            <ul class="carousel__list">
+              <li>Inbound: llamadas entrantes, atención a clientes</li>
+              <li>Outbound: llamadas salientes, promoción o invitaciones a eventos o preventas</li>
+            </ul>
+            <p class="carousel__subhead">Ideal para</p>
+            <p class="carousel__note">Empresas, turismo, campañas, organismos operadores de agua, instituciones financieras y más.</p>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media"><img src="assets/img/neurociencias.jpg" alt="Modelo 3D de un cerebro en malla de datos"></div>
+          <div class="carousel__body">
+            <h3>Neurociencia aplicada a empresas</h3>
+            <p>Te ayudamos a comprender a tus clientes y el comportamiento del mercado con ciencia y no ocurrencias. No especulamos, ni mucho menos improvisamos: respaldamos cada contenido publicitario con neurociencia para que tus mensajes conecten con la fibra emocional de tus clientes actuales o potenciales.</p>
+            <ul class="carousel__list">
+              <li>Medición precisa: visualizamos y analizamos datos clave con software y algoritmos de última generación — medimos el consciente y también dimensionamos y cuantificamos el inconsciente colectivo</li>
+              <li>Estrategias y tácticas personalizadas según las reacciones neurofisiológicas que genera tu campaña publicitaria o tus productos</li>
+              <li>Psicología de masas: comprensión profunda de motivaciones y necesidades de tus públicos</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media">
+            <span class="carousel__icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 75 L15 55 M35 75 L35 45 M55 75 L55 35 M75 75 L75 20" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M60 20 H80 V40" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 55 L35 45 L55 35 L80 20" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="carousel__body">
+            <h3>Recuperación de cartera vencida</h3>
+            <p>Transformamos e innovamos la recuperación de cartera vencida, para que el presupuesto se traduzca en acciones, y no en cuentas por cobrar.</p>
+            <ul class="carousel__list">
+              <li>Retorno de inversión de aproximadamente 98% en días o semanas</li>
+              <li>Comunicación rápida, efectiva y segmentada con los públicos de interés</li>
+              <li>Reducción de costo de oportunidad: recursos disponibles más rápido</li>
+            </ul>
+            <p class="carousel__subhead">Ideal para</p>
+            <p class="carousel__note">Empresas, organismos operadores de agua, instituciones financieras, entre otros.</p>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media">
+            <span class="carousel__icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="42" cy="42" r="26" stroke="currentColor" stroke-width="5"/><path d="M61 61 L82 82" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M30 48 L37 38 L45 44 L54 30" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="carousel__body">
+            <h3>Inteligencia de mercados y marketing estratégico</h3>
+            <p>Impulsa tu impacto y logra tus objetivos de branding.</p>
+            <ul class="carousel__list">
+              <li>Medición de percepciones, positivas y negativas, sobre productos o marcas</li>
+              <li>Diseño o análisis de productos y campañas más rentables en ventas y opinión pública</li>
+              <li>Análisis de tendencias y escenarios de ventas y/o participación de mercado</li>
+              <li>Diseño, construcción y/o testing de campañas estratégicas con mínimo margen de error y mayor impacto</li>
+              <li>Estudios cuantitativos y cualitativos</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="carousel__slide">
+          <div class="carousel__media">
+            <span class="carousel__icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 85 C50 85 72 62 72 42 A22 22 0 1 0 28 42 C28 62 50 85 50 85 Z" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><circle cx="50" cy="42" r="9" stroke="currentColor" stroke-width="5"/><path d="M18 30 A40 40 0 0 1 18 4" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.6"/><path d="M82 30 A40 40 0 0 0 82 4" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.6"/></svg></span>
+          </div>
+          <div class="carousel__body">
+            <h3>Potencialización de programas institucionales</h3>
+            <p>Potencializamos tus campañas a través de mensajes geolocalizados, llegando a los rincones de tu territorio o zonas de interés. Comunicación constante, segmentada e inmediata, sin pasar ni depender de redes sociales.</p>
+            <ul class="carousel__list">
+              <li>Mensaje con imagen o carrusel, disponible solo para Android</li>
+              <li>Mensajes de robot: llamadas automatizadas con audio de 60 segundos, teléfono fijo o móvil</li>
+              <li>Mensaje intrusivo: ocupa la pantalla completa hasta que el usuario presiona "cancelar" o "guardar"</li>
+              <li>Mensaje de texto de hasta 160 caracteres</li>
+              <li>CRM targeting sobre tu propia base de datos</li>
+            </ul>
+            <p class="carousel__subhead">Ideal para</p>
+            <p class="carousel__note">Niveles socioeconómicos bajos, medios y medios-bajos, sin celulares de alta gama, en zonas urbanas o suburbanas sin acceso a internet o con señal limitada.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="carousel__dots" data-carousel-dots></div>
+
+  </section>
+
+  <section class="portfolio" id="experiencia">
     <div class="portfolio__head">
       <h2>Trabajo seleccionado</h2>
       <p>Texto de relleno: una muestra de proyectos reales sustituirá estos marcadores.</p>
@@ -160,28 +361,41 @@
     </div>
   </section>
 
-  <section class="clients" id="clientes">
-    <div class="clients__head">
-      <h2>Marcas que han confiado en nosotros</h2>
-      <p>Texto de relleno: logos reales de clientes reemplazarán estos marcadores.</p>
-    </div>
-    <ul class="clients__grid">
-      <li class="client-tile"><span class="client-tile__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 15V9l4 6V9l4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Cliente 01</span></li>
-      <li class="client-tile"><span class="client-tile__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 15V9l4 6V9l4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Cliente 02</span></li>
-      <li class="client-tile"><span class="client-tile__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 15V9l4 6V9l4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Cliente 03</span></li>
-      <li class="client-tile"><span class="client-tile__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 15V9l4 6V9l4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Cliente 04</span></li>
-      <li class="client-tile"><span class="client-tile__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 15V9l4 6V9l4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Cliente 05</span></li>
-      <li class="client-tile"><span class="client-tile__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 15V9l4 6V9l4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Cliente 06</span></li>
-    </ul>
-  </section>
-
   <section class="cta" id="contacto">
     <div class="cta__inner">
       <h2>Hablemos de tu próximo proyecto</h2>
       <p>Cuéntanos si escribes desde Gobierno o Empresas y te conectamos con el equipo correcto.</p>
-      <div class="cta__actions">
-        <a class="btn btn--primary btn--on-red" href="tel:+524771757478">(477) 175-74-78</a>
-        <a class="btn btn--ghost btn--on-red" href="mailto:hola@grupointeractiva.com">hola@grupointeractiva.com</a>
+
+      <div class="contact-methods">
+        <a class="contact-method" href="tel:+524771757478">
+          <span class="contact-method__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 3h3l1.5 4L6.5 8.5a10 10 0 006 6L14 12.5l4 1.5v3a1.5 1.5 0 01-1.6 1.5A15 15 0 013 4.6 1.5 1.5 0 014 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          </span>
+          <span>
+            <span class="contact-method__label">Teléfono</span>
+            <span class="contact-method__value">(477) 175-74-78</span>
+          </span>
+        </a>
+
+        <a class="contact-method" href="https://wa.me/524771757478" target="_blank" rel="noopener">
+          <span class="contact-method__icon contact-method__icon--whatsapp" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.219.611 4.293 1.671 6.067L4 29l8.13-1.633A11.94 11.94 0 0016.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3zm0 21.6a9.55 9.55 0 01-4.868-1.33l-.35-.208-4.826.968.985-4.7-.228-.362A9.56 9.56 0 016.4 15c0-5.302 4.3-9.6 9.601-9.6 5.301 0 9.6 4.298 9.6 9.6 0 5.301-4.299 9.6-9.6 9.6z"/><path d="M21.213 17.607c-.283-.142-1.671-.824-1.93-.918-.259-.094-.448-.142-.636.142-.19.283-.73.918-.895 1.106-.165.19-.33.213-.613.071-.283-.141-1.194-.44-2.274-1.402-.841-.75-1.409-1.677-1.574-1.96-.165-.283-.018-.436.124-.577.128-.127.283-.33.424-.495.142-.165.19-.283.283-.472.094-.19.047-.354-.024-.495-.07-.142-.636-1.533-.872-2.1-.229-.552-.462-.477-.636-.486-.165-.008-.354-.01-.542-.01-.19 0-.495.07-.754.354-.26.283-.99.968-.99 2.36 0 1.392 1.014 2.737 1.155 2.926.142.19 1.994 3.045 4.833 4.27.675.291 1.202.465 1.613.595.678.216 1.294.185 1.782.112.544-.081 1.671-.683 1.906-1.343.236-.66.236-1.225.165-1.343-.07-.118-.259-.19-.542-.33z"/></svg>
+          </span>
+          <span>
+            <span class="contact-method__label">WhatsApp</span>
+            <span class="contact-method__value">Escríbenos directo</span>
+          </span>
+        </a>
+
+        <a class="contact-method" href="mailto:hola@grupointeractiva.com">
+          <span class="contact-method__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l8 6 8-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>
+            <span class="contact-method__label">Correo</span>
+            <span class="contact-method__value">hola@grupointeractiva.com</span>
+          </span>
+        </a>
       </div>
     </div>
   </section>
@@ -193,9 +407,10 @@
     <span class="brand__plate brand__plate--footer"><img src="assets/img/logo-white.png" alt="Grupo Interactiva"></span>
     <nav aria-label="Navegación de pie de página">
       <ul>
-        <li><a href="gobierno/index.html">Gobierno</a></li>
-        <li><a href="empresas/index.html">Empresas</a></li>
-        <li><a href="#quienes-somos">Quiénes somos</a></li>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#quienes-somos">Nosotros</a></li>
+        <li><a href="#servicios" data-nav-link="servicios">Servicios</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
@@ -211,6 +426,13 @@
     <p>© <span data-year></span> Grupo Interactiva México (GIM). Comunicación · Branding · Marketing.</p>
   </div>
 </footer>
+
+<a class="whatsapp-btn" href="https://wa.me/524771757478" target="_blank" rel="noopener" aria-label="Chatea por WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.219.611 4.293 1.671 6.067L4 29l8.13-1.633A11.94 11.94 0 0016.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3zm0 21.6a9.55 9.55 0 01-4.868-1.33l-.35-.208-4.826.968.985-4.7-.228-.362A9.56 9.56 0 016.4 15c0-5.302 4.3-9.6 9.601-9.6 5.301 0 9.6 4.298 9.6 9.6 0 5.301-4.299 9.6-9.6 9.6z"/>
+    <path d="M21.213 17.607c-.283-.142-1.671-.824-1.93-.918-.259-.094-.448-.142-.636.142-.19.283-.73.918-.895 1.106-.165.19-.33.213-.613.071-.283-.141-1.194-.44-2.274-1.402-.841-.75-1.409-1.677-1.574-1.96-.165-.283-.018-.436.124-.577.128-.127.283-.33.424-.495.142-.165.19-.283.283-.472.094-.19.047-.354-.024-.495-.07-.142-.636-1.533-.872-2.1-.229-.552-.462-.477-.636-.486-.165-.008-.354-.01-.542-.01-.19 0-.495.07-.754.354-.26.283-.99.968-.99 2.36 0 1.392 1.014 2.737 1.155 2.926.142.19 1.994 3.045 4.833 4.27.675.291 1.202.465 1.613.595.678.216 1.294.185 1.782.112.544-.081 1.671-.683 1.906-1.343.236-.66.236-1.225.165-1.343-.07-.118-.259-.19-.542-.33z"/>
+  </svg>
+</a>
 
 <script src="js/script.js"></script>
 </body>
