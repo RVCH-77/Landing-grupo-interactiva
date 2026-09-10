@@ -38,6 +38,64 @@
   const yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Parallax: the background layer drifts slower/faster than the page as
+  // the section scrolls past, for a sense of depth. Driven by scroll
+  // position (not IntersectionObserver) so the drift is continuous rather
+  // than stepped, using transform only (GPU-composited, no layout cost),
+  // throttled to one recalculation per animation frame. Skipped entirely
+  // under prefers-reduced-motion.
+  const parallaxSections = Array.from(document.querySelectorAll("[data-parallax]"));
+  if (parallaxSections.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const layers = parallaxSections
+      .map((section) => ({
+        section,
+        layer: section.querySelector("[data-parallax-layer]"),
+        speed: parseFloat(section.dataset.parallax) || 0.15,
+      }))
+      .filter((entry) => entry.layer);
+
+    let ticking = false;
+    const updateParallax = () => {
+      const vh = window.innerHeight;
+      layers.forEach(({ section, layer, speed }) => {
+        const rect = section.getBoundingClientRect();
+        const centerOffset = rect.top + rect.height / 2 - vh / 2;
+        layer.style.transform = `translateY(${(centerOffset * speed).toFixed(1)}px)`;
+      });
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateParallax);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    updateParallax();
+  }
+
+  // Scroll-reveal: fade + rise elements into view the first time they cross
+  // the viewport. The hidden starting state lives in CSS behind a
+  // prefers-reduced-motion guard, so this only ever adds a class.
+  const revealEls = document.querySelectorAll("[data-reveal]");
+  if (revealEls.length && "IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+    revealEls.forEach((el) => revealObserver.observe(el));
+  }
+
   if (nav) {
     const path = window.location.pathname;
     const isServicios = path.includes("/gobierno/") || path.includes("/empresas/") || path.includes("/servicios/");
@@ -86,16 +144,52 @@
       update();
     };
 
-    prevBtn?.addEventListener("click", () => goTo(index - 1));
-    nextBtn?.addEventListener("click", () => goTo(index + 1));
+    // Auto-advance: pauses on hover/keyboard focus (so reading the slide's
+    // text never gets interrupted), on a manual prev/next/dot click (resets
+    // the wait rather than fighting the visitor), while the tab is hidden,
+    // and entirely under prefers-reduced-motion.
+    const autoplayMs = parseInt(root.dataset.carouselInterval, 10) || 7000;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let autoplayTimer = null;
+
+    const stopAutoplay = () => {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (reduceMotion.matches || document.hidden) return;
+      autoplayTimer = setInterval(() => goTo(index + 1), autoplayMs);
+    };
+
+    const restartAutoplay = () => { stopAutoplay(); startAutoplay(); };
+
+    prevBtn?.addEventListener("click", () => { goTo(index - 1); restartAutoplay(); });
+    nextBtn?.addEventListener("click", () => { goTo(index + 1); restartAutoplay(); });
+    dots.forEach((dot) => dot.addEventListener("click", restartAutoplay));
 
     root.setAttribute("tabindex", "0");
     root.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") { goTo(index - 1); }
-      else if (e.key === "ArrowRight") { goTo(index + 1); }
+      if (e.key === "ArrowLeft") { goTo(index - 1); restartAutoplay(); }
+      else if (e.key === "ArrowRight") { goTo(index + 1); restartAutoplay(); }
+    });
+
+    root.addEventListener("mouseenter", stopAutoplay);
+    root.addEventListener("mouseleave", startAutoplay);
+    root.addEventListener("focusin", stopAutoplay);
+    root.addEventListener("focusout", (e) => {
+      if (!root.contains(e.relatedTarget)) startAutoplay();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopAutoplay();
+      else startAutoplay();
     });
 
     update();
+    startAutoplay();
   });
 
   // Transparent video: the source file stacks a color frame on top and its

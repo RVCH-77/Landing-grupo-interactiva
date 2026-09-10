@@ -228,7 +228,7 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   right: 100%;
   bottom: 0;
   height: 1.5px;
-  background: var(--blue-tint);
+  background: var(--red-tint);
   transition: right 0.3s var(--ease-out-expo);
 }
 .primary-nav a:hover {
@@ -309,6 +309,37 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
     radial-gradient(60% 55% at 8% 100%, var(--red) 0%, transparent 60%),
     radial-gradient(50% 45% at 100% 0%, var(--blue) 0%, transparent 60%);
   opacity: 0.55;
+}
+
+.hero__brand {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--edge) 4rem;
+  pointer-events: none;
+}
+.hero__brand-logo {
+  width: min(85%, 30rem);
+  height: auto;
+  filter: drop-shadow(0 1.5rem 3rem rgba(0, 0, 0, 0.55));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__brand-logo {
+    opacity: 0;
+    transform: scale(0.92) translateY(18px);
+    animation: hero-brand-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+}
+
+@keyframes hero-brand-in {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .hero__content {
@@ -627,6 +658,25 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   gap: 1.25rem;
 }
 
+/* Scroll-reveal: elements fade + rise into place the first time they enter
+   the viewport (see [data-reveal] observer in script.js). Gated behind
+   no-preference so reduced-motion users get the content fully visible from
+   the start, with no dependency on JS running. */
+@media (prefers-reduced-motion: no-preference) {
+  .about [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .about [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .about__kicker-free[data-reveal] { transition-delay: 0s; }
+  .about__statement[data-reveal] { transition-delay: 0.12s; }
+  .about__pills[data-reveal] { transition-delay: 0.24s; }
+}
+
 /* ---------------------------------------------------------------
    CTA / Contact
    --------------------------------------------------------------- */
@@ -664,6 +714,23 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cta [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cta [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cta h2[data-reveal] { transition-delay: 0s; }
+  .cta p[data-reveal] { transition-delay: 0.12s; }
+  .contact-method[data-reveal]:nth-child(1) { transition-delay: 0.24s; }
+  .contact-method[data-reveal]:nth-child(2) { transition-delay: 0.34s; }
+  .contact-method[data-reveal]:nth-child(3) { transition-delay: 0.44s; }
 }
 
 .contact-methods {
@@ -774,7 +841,15 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   border-top: 1px solid var(--ink-line);
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.45);
+  text-align: center;
 }
+.site-footer__bottom a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.25s ease;
+}
+.site-footer__bottom a:hover { color: var(--red-tint); }
 
 /* ---------------------------------------------------------------
    Responsive
@@ -1134,18 +1209,27 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
 
 .partners {
   position: relative;
-  background: var(--ink) url("../assets/img/gim.jpg") center / cover no-repeat;
+  background: var(--ink);
   padding: 7rem var(--edge) 6rem;
   overflow: hidden;
+}
+.partners__bg {
+  position: absolute;
+  inset: -30vh 0;
+  z-index: 0;
+  background: url("../assets/img/gim.jpg") center / cover no-repeat;
+  will-change: transform;
 }
 .partners::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(180deg, rgba(11, 11, 12, 0.5) 0%, rgba(11, 11, 12, 0.72) 100%);
 }
 .partners__inner {
   position: relative;
+  z-index: 2;
   max-width: 88rem;
   margin: 0 auto;
   display: flex;
@@ -1188,6 +1272,24 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   position: relative;
   margin-top: 3.5rem;
   text-align: center;
+}
+
+/* Scroll-reveal: the two blocks slide in from the side they're anchored to
+   (neuro from the left, analytics from the right, matching their
+   text-align), then the CTA rises in last. Complements the parallax
+   background drift already applied to [data-parallax-layer] above. */
+@media (prefers-reduced-motion: no-preference) {
+  .partners [data-reveal] {
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .partners [data-reveal].is-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  .partner-block--neuro[data-reveal] { transform: translateX(-3rem); }
+  .partner-block--analytics[data-reveal] { transform: translateX(3rem); transition-delay: 0.15s; }
+  .partners__cta[data-reveal] { transform: translateY(1.5rem); transition-delay: 0.3s; }
 }
 
 /* Audience pills (Quiénes somos CTA) --------------------------------- */
