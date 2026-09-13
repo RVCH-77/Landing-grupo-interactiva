@@ -33,6 +33,13 @@
         navToggle.setAttribute("aria-expanded", "false");
       });
     });
+
+    document.addEventListener("click", (e) => {
+      if (!nav.hasAttribute("data-open")) return;
+      if (nav.contains(e.target) || navToggle.contains(e.target)) return;
+      nav.removeAttribute("data-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
   }
 
   const yearEl = document.querySelector("[data-year]");
