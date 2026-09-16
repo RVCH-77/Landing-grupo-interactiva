@@ -42,6 +42,49 @@
     });
   }
 
+  // Nav indicator: a curved "sidebar-style" row that slides behind
+  // whichever link is hovered or focused, with a bouncy overshoot easing.
+  // Tracks hover/focus rather than the current page so it never has to
+  // sit red-on-red against the "current page" link color.
+  const navIndicator = nav?.querySelector("[data-nav-indicator]");
+  if (nav && navIndicator && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Extra vertical breathing room around the text — without it the row
+    // is too thin (~18px) for the diagonal curve to read as anything more
+    // than a plain rounded pill.
+    const V_PAD = 10;
+
+    const moveIndicatorTo = (link) => {
+      const navRect = nav.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      navIndicator.style.height = `${linkRect.height + V_PAD * 2}px`;
+      navIndicator.style.transform = `translateY(${linkRect.top - navRect.top - V_PAD}px)`;
+      navIndicator.style.opacity = "1";
+    };
+
+    const hideIndicator = () => {
+      navIndicator.style.opacity = "0";
+    };
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("mouseenter", () => moveIndicatorTo(link));
+      link.addEventListener("focus", () => moveIndicatorTo(link));
+    });
+
+    nav.addEventListener("mouseleave", () => {
+      if (document.activeElement && nav.contains(document.activeElement)) return;
+      hideIndicator();
+    });
+    nav.addEventListener("focusout", (e) => {
+      if (!nav.contains(e.relatedTarget)) hideIndicator();
+    });
+
+    window.addEventListener("resize", () => {
+      if (document.activeElement && nav.contains(document.activeElement)) {
+        moveIndicatorTo(document.activeElement);
+      }
+    });
+  }
+
   const yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 

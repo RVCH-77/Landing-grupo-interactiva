@@ -202,17 +202,33 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
 }
 .brand__plate--footer img { height: 48px; }
 
+/* The nav is always the slide-in curved sidebar now (on every screen
+   size, not just mobile) — see .nav-toggle / [data-open] below. */
 .primary-nav {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(80vw, 22rem);
+  height: 100vh;
+  height: 100svh;
+  background: var(--ink-soft);
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 2rem var(--edge);
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease-out-expo);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
 }
+.primary-nav[data-open] { transform: translateX(0); }
 .primary-nav ul {
   display: flex;
-  gap: 1.75rem;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 .primary-nav a {
-  font-size: 0.85rem;
+  font-size: 1.25rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -221,30 +237,57 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   padding-bottom: 0.2em;
   transition: color 0.25s ease;
 }
-.primary-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 100%;
-  bottom: 0;
-  height: 1.5px;
-  background: var(--red-tint);
-  transition: right 0.3s var(--ease-out-expo);
-}
 .primary-nav a:hover {
   color: var(--white);
 }
-.primary-nav a:hover::after { right: 0; }
 .primary-nav a[aria-current="page"] {
   color: var(--red);
   font-weight: 700;
 }
-.primary-nav a[aria-current="page"]::after {
-  display: none;
+
+/* Curved sidebar-style indicator behind the hovered/focused link — same
+   mechanic as the reference clip: the row literally escapes past the
+   panel's own left edge, with two concave "bite" corners (::before/::after,
+   carved with a radial-gradient) cut from var(--ink-soft) so the panel
+   reads as wrapping around it, exactly like the video. Slides via JS (see
+   moveIndicatorTo in script.js). Follows hover/focus rather than the
+   current page, so it never has to fight the red "current page" text
+   color for contrast. */
+.nav-indicator {
+  position: absolute;
+  top: 0;
+  left: -20px;
+  right: var(--edge);
+  opacity: 0;
+  background: var(--red);
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.2s ease;
+}
+.nav-indicator::before,
+.nav-indicator::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.nav-indicator::before {
+  top: 0;
+  background: radial-gradient(circle at bottom right, transparent 20px, var(--ink-soft) 20px);
+}
+.nav-indicator::after {
+  bottom: 0;
+  background: radial-gradient(circle at top right, transparent 20px, var(--ink-soft) 20px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-indicator { display: none; }
 }
 
 .nav-toggle {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 5px;
@@ -954,38 +997,11 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   }
 }
 
-@media (max-width: 720px) {
-  .nav-toggle { display: flex; }
-
-  .primary-nav {
-    position: fixed;
-    inset: 0 0 0 auto;
-    width: min(80vw, 22rem);
-    height: 100vh;
-    height: 100svh;
-    background: var(--ink-soft);
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 2.5rem;
-    padding: 2rem var(--edge);
-    transform: translateX(100%);
-    transition: transform 0.4s var(--ease-out-expo);
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
-  }
-  .primary-nav[data-open] { transform: translateX(0); }
-  .primary-nav ul {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .primary-nav a { font-size: 1.25rem; }
-
-  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:first-child {
-    transform: translateY(3.5px) rotate(45deg);
-  }
-  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:last-child {
-    transform: translateY(-3.5px) rotate(-45deg);
-  }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
 }
 
 @media (max-width: 560px) {
@@ -1292,7 +1308,9 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
   position: absolute;
   inset: -30vh 0;
   z-index: 0;
-  background: url("../assets/img/gim.jpg") center / cover no-repeat;
+  width: 100%;
+  height: calc(100% + 60vh);
+  object-fit: cover;
   will-change: transform;
 }
 .partners::before {
@@ -1736,8 +1754,7 @@ html { scrollbar-color: var(--ink-line) var(--ink); scrollbar-width: thin; }
 @media (max-width: 640px) {
   .partners { padding: 4rem var(--edge) 3.5rem; }
   .partners__bg {
-    background-size: 240% auto;
-    background-position: 22% center;
+    object-position: 22% center;
   }
   .partners::before {
     background: linear-gradient(180deg, rgba(11, 11, 12, 0.4) 0%, rgba(11, 11, 12, 0.6) 100%);
