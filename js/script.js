@@ -3,16 +3,30 @@
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-nav]");
 
+  const heroSection = document.querySelector("[data-hero-section]") || document.querySelector("#inicio");
+
   if (header) {
     const setScrolled = () => {
-      if (window.scrollY > 24) {
+      const scrollY = window.scrollY;
+      if (scrollY > 24) {
         header.setAttribute("data-scrolled", "");
       } else {
         header.removeAttribute("data-scrolled");
       }
+
+      if (heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        if (heroBottom > 120) {
+          document.body.classList.add("is-in-hero");
+        } else {
+          document.body.classList.remove("is-in-hero");
+        }
+      }
     };
+
     setScrolled();
     window.addEventListener("scroll", setScrolled, { passive: true });
+    window.addEventListener("resize", setScrolled, { passive: true });
   }
 
   if (navToggle && nav) {
