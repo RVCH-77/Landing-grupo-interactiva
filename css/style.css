@@ -532,8 +532,18 @@ html {
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
+.hero__hex-overlay-left {
+  position: absolute;
+  top: clamp(0.5rem, 2vh, 1.8rem);
+  left: -90px;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
 /* Oculta el menú hexagonal cuando no se está en la sección Hero */
-body:not(.is-in-hero) .hero__hex-overlay {
+body:not(.is-in-hero) .hero__hex-overlay,
+body:not(.is-in-hero) .hero__hex-overlay-left {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-20px);
@@ -550,7 +560,9 @@ body:not(.is-in-hero) .hero__hex-overlay {
 
 /* Esconde el menú hexagonal completo en pantallas pequeñas (donde rige la hamburguesa) */
 @media (max-width: 1023px) {
-  .hero__hex-overlay {
+
+  .hero__hex-overlay,
+  .hero__hex-overlay-left {
     display: none !important;
   }
 }
@@ -574,8 +586,13 @@ body:not(.is-in-hero) .hero__hex-overlay {
 }
 
 /* Columna 2 (Derecha) se desplaza verticalmente hacia abajo media altura + canal */
-.honeycomb-col--right {
+.honeycomb-col--right,
+.honeycomb-col--decor-col2 {
   margin-top: calc((var(--hex-h) + var(--hex-gap)) / 2);
+}
+
+.hex-item-svg--decor-l1 {
+  margin-top: calc(-0.50 * var(--hex-h));
 }
 
 /* Estilos base de los SVG hexagonales */
@@ -594,13 +611,13 @@ body:not(.is-in-hero) .hero__hex-overlay {
 }
 
 /* Interacción Hover en botones de navegación */
-.hex-item-svg:not(.hex-item-svg--decor-top):not(.hex-item-svg--decor-bottom):not(.hex-item-svg--social):hover {
+.hex-item-svg:not(.hex-item-svg--decor-top):not(.hex-item-svg--decor-bottom):not(.hex-item-svg--decor-left-bottom):not([class*="hex-item-svg--decor"]):not(.hex-item-svg--social):hover {
   transform: scale(1.06);
   z-index: 10;
   filter: drop-shadow(0 0 25px rgba(221, 4, 41, 0.75));
 }
 
-.hex-item-svg:not(.hex-item-svg--decor-top):not(.hex-item-svg--decor-bottom):not(.hex-item-svg--social):hover polygon {
+.hex-item-svg:not(.hex-item-svg--decor-top):not(.hex-item-svg--decor-bottom):not(.hex-item-svg--decor-left-bottom):not([class*="hex-item-svg--decor"]):not(.hex-item-svg--social):hover polygon {
   fill: #68000b;
   stroke: #dd0429;
 }
@@ -656,7 +673,7 @@ body:not(.is-in-hero) .hero__hex-overlay {
   z-index: 5;
 }
 
-/* Hexágono Decorativo Inferior Gigante (Alineación perfecta del canal izquierdo frente a CONTACTO) */
+/* Hexágono Decorativo Inferior Gigante Derecho */
 .hex-item-svg--decor-bottom {
   pointer-events: none;
   width: calc(var(--hex-w) * 1.38);
@@ -664,6 +681,34 @@ body:not(.is-in-hero) .hero__hex-overlay {
   margin-left: calc(-0.18 * var(--hex-w));
   margin-top: calc(0.06 * var(--hex-h));
   z-index: 1;
+}
+
+/* Hexágono Decorativo Inferior Gigante Izquierdo */
+.hex-item-svg--decor-left-bottom {
+  pointer-events: none;
+  width: calc(var(--hex-w) * 1.38);
+  height: calc(var(--hex-h) * 1.38);
+  margin-left: calc(-0.08 * var(--hex-w));
+  margin-top: 0;
+  z-index: 1;
+}
+
+/* Hexágonos Decorativos Izquierdos rodeando al gigante (Desplazados más abajo aún) */
+.hex-item-svg--decor-l1 {
+  position: absolute;
+  top: calc(2.25 * var(--hex-h) - var(--hex-gap));
+  left: calc(-0.43 * var(--hex-w));
+  z-index: 1;
+}
+
+.hex-item-svg--decor-l2 {
+  position: relative;
+  left: calc(0.42 * var(--hex-w));
+  margin-top: calc(2.25 * var(--hex-h) - var(--hex-gap));
+}
+
+.hex-item-svg--decor-r2 {
+  margin-top: calc(2.25 * var(--hex-h) - 0.50 * var(--hex-gap));
 }
 
 
