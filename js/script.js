@@ -72,8 +72,8 @@
     const moveIndicatorTo = (link) => {
       const navRect = nav.getBoundingClientRect();
       const linkRect = link.getBoundingClientRect();
-      navIndicator.style.height = `${linkRect.height + V_PAD * 2}px`;
-      navIndicator.style.transform = `translateY(${linkRect.top - navRect.top - V_PAD}px)`;
+      navIndicator.style.height = `${linkRect.height}px`;
+      navIndicator.style.transform = `translateY(${linkRect.top - navRect.top}px)`;
       navIndicator.style.opacity = "1";
     };
 
