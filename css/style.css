@@ -222,6 +222,7 @@ html {
   padding: 1rem var(--edge);
   background: linear-gradient(to bottom, rgba(11, 11, 12, 0.55), transparent);
   transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: none;
 }
 
 .site-header[data-scrolled] {
@@ -236,6 +237,7 @@ html {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
+  pointer-events: auto;
 }
 
 .brand__plate {
@@ -527,7 +529,7 @@ html {
   position: absolute;
   top: clamp(0.5rem, 2vh, 1.8rem);
   right: -90px;
-  z-index: 15;
+  z-index: 200;
   pointer-events: auto;
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
@@ -626,25 +628,55 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
 .hex-item-svg--social {
   cursor: default;
   margin-top: calc(-0.50 * var(--hex-h));
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
 }
 
-/* INICIO (Desplazado a la derecha mediante position relative sin alterar el contenedor ni mover EXPERIENCIA, CONTACTO ni Redes Sociales) */
-.hex-item-svg--inicio {
-  position: relative;
-  left: calc(0.14 * var(--hex-w));
-  margin-top: calc(-0.02 * var(--hex-h));
+.hex-item-svg--social > svg {
+  pointer-events: none;
 }
 
 .hex-social-link {
-  cursor: pointer;
+  position: absolute;
+  top: 54%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 99999;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 26px;
+  transition: transform 0.25s ease, color 0.25s ease;
 }
 
-.hex-social-link path {
-  transition: fill 0.25s ease, transform 0.25s ease;
+.hex-social-link i {
+  pointer-events: none !important;
+  font-size: 26px;
+  color: #ffffff;
+  transition: color 0.25s ease;
 }
 
-.hex-social-link:hover path {
-  fill: #dd0429;
+.hex-social-link:hover {
+  transform: scale(1.25);
+  color: #dd0429;
+}
+
+.hex-social-link:hover i {
+  color: #dd0429;
+}
+
+.hex-social-link--insta {
+  left: 20%;
+}
+
+.hex-social-link--yt {
+  left: 55%;
 }
 
 /* Hexágono Decorativo Superior Gigante (Elevado con canal limpio de 16px sobre NOSOTROS) */
