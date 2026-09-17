@@ -530,7 +530,7 @@ html {
   top: clamp(0.5rem, 2vh, 1.8rem);
   right: -90px;
   z-index: 200;
-  pointer-events: auto;
+  pointer-events: none;
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
@@ -579,12 +579,14 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   /* Encastre perfecto entre columnas: gap = -0.25 * hex-w + 0.866 * hex-gap */
   gap: calc(-0.25 * var(--hex-w) + 0.866 * var(--hex-gap));
   user-select: none;
+  pointer-events: none;
 }
 
 .honeycomb-col {
   display: flex;
   flex-direction: column;
   gap: var(--hex-gap);
+  pointer-events: none;
 }
 
 /* Columna 2 (Derecha) se desplaza verticalmente hacia abajo media altura + canal */
@@ -606,6 +608,7 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
   filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.85));
   text-decoration: none;
+  pointer-events: auto;
 }
 
 .hex-item-svg polygon {
@@ -629,17 +632,17 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   cursor: default;
   margin-top: calc(-0.50 * var(--hex-h));
   position: relative;
-  z-index: 100;
-  pointer-events: auto;
+  z-index: 500;
+  pointer-events: none;
 }
 
 .hex-item-svg--social > svg {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .hex-social-link {
   position: absolute;
-  top: 54%;
+  top: 68%;
   width: 44px;
   height: 44px;
   display: flex;
@@ -663,7 +666,7 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
 }
 
 .hex-social-link:hover {
-  transform: scale(1.25);
+  transform: translate(-50%, -50%) scale(1.25);
   color: #dd0429;
 }
 
@@ -672,11 +675,13 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
 }
 
 .hex-social-link--insta {
-  left: 20%;
+  left: 33%;
+  transform: translate(-50%, -50%);
 }
 
 .hex-social-link--yt {
-  left: 55%;
+  left: 67%;
+  transform: translate(-50%, -50%);
 }
 
 /* Hexágono Decorativo Superior Gigante (Elevado con canal limpio de 16px sobre NOSOTROS) */
