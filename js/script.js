@@ -233,7 +233,7 @@
     // text never gets interrupted), on a manual prev/next/dot click (resets
     // the wait rather than fighting the visitor), while the tab is hidden,
     // and entirely under prefers-reduced-motion.
-    const autoplayMs = parseInt(root.dataset.carouselInterval, 10) || 7000;
+    const autoplayMs = parseInt(root.dataset.carouselInterval, 10) || 20000;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let autoplayTimer = null;
 
