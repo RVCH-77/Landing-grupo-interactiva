@@ -2336,7 +2336,11 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   position: relative;
   max-width: 88rem;
   margin: 0 auto;
-  padding: 0 4.5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
   text-align: center;
 }
 
@@ -2349,40 +2353,36 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
 }
 
 .carousel__arrow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3.25rem;
+  position: static;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
+  background: rgba(221, 4, 41, 0.1);
+  border: 1.5px solid rgba(221, 4, 41, 0.45);
+  border-radius: 50%;
   color: var(--red);
   cursor: pointer;
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
 .carousel__arrow:hover:not(:disabled) {
-  color: var(--red-tint);
+  color: var(--white);
+  background: var(--red);
+  border-color: var(--red);
+  transform: scale(1.06);
 }
 
 .carousel__arrow:disabled {
-  opacity: 0.25;
+  opacity: 0.3;
   cursor: default;
 }
 
-.carousel__arrow--prev {
-  left: 0;
-}
-
-.carousel__arrow--next {
-  right: 0;
-}
-
 .carousel__arrow svg {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 .carousel__viewport {
@@ -2621,22 +2621,29 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   }
 
   .carousel__head {
-    padding: 0 3.5rem;
+    gap: 1rem;
+    padding: 0 1.25rem;
   }
 }
 
 @media (max-width: 560px) {
+  .carousel__head {
+    gap: 0.75rem;
+    padding: 0 1rem;
+  }
+
   .carousel__arrow {
     width: 2.5rem;
+    height: 2.5rem;
   }
 
   .carousel__arrow svg {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.15rem;
+    height: 1.15rem;
   }
 
-  .carousel__head {
-    padding: 0 3rem;
+  .carousel__title {
+    font-size: clamp(1.4rem, 5vw + 0.5rem, 1.9rem);
   }
 }
 
