@@ -72,8 +72,27 @@
     const moveIndicatorTo = (link) => {
       const navRect = nav.getBoundingClientRect();
       const linkRect = link.getBoundingClientRect();
-      navIndicator.style.height = `${linkRect.height}px`;
-      navIndicator.style.transform = `translateY(${linkRect.top - navRect.top}px)`;
+      const isRow = getComputedStyle(nav).flexDirection === "row";
+
+      if (isRow) {
+        // En escritorio el indicador es solo una línea roja delgada
+        // debajo del texto (alto fijo por CSS, no por JS), del mismo
+        // ancho que el nombre y no del área clicable con su padding.
+        const linkStyle = getComputedStyle(link);
+        const padLeft = parseFloat(linkStyle.paddingLeft) || 0;
+        const padRight = parseFloat(linkStyle.paddingRight) || 0;
+
+        navIndicator.style.height = "";
+        navIndicator.style.width = `${linkRect.width - padLeft - padRight}px`;
+        navIndicator.style.right = "auto";
+        navIndicator.style.transform = `translateX(${linkRect.left - navRect.left + padLeft}px)`;
+      } else {
+        navIndicator.style.height = `${linkRect.height}px`;
+        navIndicator.style.width = "auto";
+        navIndicator.style.right = "0";
+        navIndicator.style.transform = `translateY(${linkRect.top - navRect.top}px)`;
+      }
+
       navIndicator.style.opacity = "1";
     };
 
@@ -81,7 +100,7 @@
       navIndicator.style.opacity = "0";
     };
 
-    nav.querySelectorAll("a").forEach((link) => {
+    nav.querySelectorAll("ul > li:not(.primary-nav__social) > a").forEach((link) => {
       link.addEventListener("mouseenter", () => moveIndicatorTo(link));
       link.addEventListener("focus", () => moveIndicatorTo(link));
     });
