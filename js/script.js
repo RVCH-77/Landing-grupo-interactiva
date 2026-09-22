@@ -183,7 +183,7 @@
 
   if (nav) {
     const path = window.location.pathname;
-    const isServicios = path.includes("/gobierno/") || path.includes("/empresas/") || path.includes("/servicios/");
+    const isServicios = path.includes("/gobierno") || path.includes("/empresas") || path.includes("/servicios/");
     if (isServicios) {
       nav.querySelector('[data-nav-link="servicios"]')?.setAttribute("aria-current", "page");
     }
@@ -425,5 +425,63 @@
     }
 
     if (isVisible()) activate();
+  });
+
+  // YouTube: show the thumbnail first and only load the player on click,
+  // so six embeds don't slow the page down.
+  document.querySelectorAll("[data-yt]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.yt}?autoplay=1&rel=0`;
+      iframe.title = btn.getAttribute("aria-label") || "Video";
+      iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      btn.classList.add("is-playing");
+      btn.replaceChildren(iframe);
+    }, { once: true });
+  });
+
+  // Domain search: a DNS lookup (Cloudflare DNS-over-HTTPS). NXDOMAIN means
+  // nobody has registered it; any answer means it's taken.
+  document.querySelectorAll("[data-domain-check]").forEach((form) => {
+    const input = form.querySelector('[name="nombre"]');
+    const tld = form.querySelector('[name="tld"]');
+    const status = form.querySelector("[data-domain-status]");
+    const submit = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = input.value.trim().toLowerCase()
+        .replace(/^https?:\/\//, "").replace(/^www\./, "").split(".")[0];
+      status.className = "domain__status";
+
+      if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(name)) {
+        status.textContent = "Escribe un nombre válido: solo letras, números y guiones.";
+        input.focus();
+        return;
+      }
+
+      const domain = `${name}.${tld.value}`;
+      status.textContent = `Buscando ${domain}…`;
+      submit.disabled = true;
+
+      try {
+        const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=NS`, {
+          headers: { accept: "application/dns-json" },
+        });
+        const data = await res.json();
+        if (data.Status === 3) {
+          status.textContent = `¡${domain} está disponible! Escríbenos y te ayudamos a registrarlo.`;
+          status.classList.add("is-free");
+        } else {
+          status.textContent = `${domain} ya está ocupado. Prueba con otro nombre o extensión.`;
+          status.classList.add("is-taken");
+        }
+      } catch {
+        status.textContent = "No pudimos comprobar el dominio en este momento. Inténtalo de nuevo.";
+      } finally {
+        submit.disabled = false;
+      }
+    });
   });
 })();
