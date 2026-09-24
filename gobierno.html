@@ -60,19 +60,11 @@
 
   <main id="contenido">
 
-    <section class="page-hero">
-      <div class="page-hero__inner">
-        <p class="breadcrumb"><a href="index.html">Inicio</a><span aria-hidden="true">/</span>Gobierno</p>
-        <nav class="sector-switch" aria-label="Cambiar de sector">
-          <a href="gobierno.html" aria-current="page"><i class="fa-solid fa-landmark" aria-hidden="true"></i> Gobierno</a>
-          <a href="empresas.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Empresas</a>
-        </nav>
-        <h1>Gobierno</h1>
-        <p>¡Te ayudamos a gobernar con inteligencia y efectividad!</p>
-      </div>
-    </section>
-
-    <section class="carousel" data-carousel id="servicios">
+    <section class="carousel carousel--page" data-carousel id="servicios">
+      <nav class="sector-switch" aria-label="Cambiar de sector">
+        <a href="gobierno.html" aria-current="page"><i class="fa-solid fa-landmark" aria-hidden="true"></i> Gobierno</a>
+        <a href="empresas.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Empresas</a>
+      </nav>
       <div class="carousel__head">
         <button class="carousel__arrow carousel__arrow--prev" type="button" data-carousel-prev
           aria-label="Servicio anterior">
@@ -81,7 +73,7 @@
               stroke-linejoin="round" />
           </svg>
         </button>
-        <h2 class="carousel__title">Servicios</h2>
+        <h1 class="carousel__title">Servicios Gobierno</h1>
         <button class="carousel__arrow carousel__arrow--next" type="button" data-carousel-next
           aria-label="Siguiente servicio">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -90,6 +82,7 @@
           </svg>
         </button>
       </div>
+      <p class="carousel__slogan">¡Te ayudamos a gobernar con inteligencia y efectividad!</p>
 
       <div class="carousel__viewport">
         <div class="carousel__track" data-carousel-track>
@@ -384,18 +377,6 @@
       </div>
     </section>
 
-    <section class="sectors sectors--single" aria-label="Servicios para Empresas">
-      <a class="sector sector--emp" href="empresas.html">
-        <img class="sector__bg" src="assets/img/empresas.jpg" alt="" loading="lazy" decoding="async">
-        <div class="sector__content">
-          <p class="sector__kicker" data-reveal>¿Buscas soluciones para tu empresa?</p>
-          <h2 class="sector__title" data-reveal>Empresas</h2>
-          <p class="sector__text" data-reveal>¡Te apoyamos a conectar y vender con inteligencia y efectividad!</p>
-          <span class="sector__btn" data-reveal>Ver servicios para Empresas</span>
-        </div>
-      </a>
-    </section>
-
     <section class="cta" id="contacto">
       <div class="cta__inner">
         <h2 data-reveal>Hablemos de tu próximo proyecto</h2>
@@ -463,14 +444,6 @@
           <li><a href="index.html#contacto">Contacto</a></li>
         </ul>
       </nav>
-      <div class="site-footer__meta">
-        <span class="mx-badge"><span class="mx-badge__dot" aria-hidden="true"></span> Empresa 100% mexicana</span>
-        <ul class="site-footer__social">
-          <li><a href="https://www.instagram.com/grupointeractiva/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.youtube.com/channel/UCXUrs533jEMglj7IckZVP_w" target="_blank"
-              rel="noopener">YouTube</a></li>
-        </ul>
-      </div>
     </div>
     <div class="site-footer__bottom">
       <p>© <span data-year></span> Grupo Interactiva México (GIM). Comunicación · Branding · Marketing. Todos los

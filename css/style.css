@@ -3692,33 +3692,31 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   color: var(--white);
 }
 
-.sectors--single {
-  grid-template-columns: 1fr;
+/* Sector pages: carousel is the first block, so it clears the fixed
+   header, carries the Gobierno/Empresas toggle and a slogan under the title. */
+.carousel--page {
+  padding-top: 8.5rem;
+  text-align: center;
 }
 
-.sectors--single .sector {
-  min-height: clamp(22rem, 30vw, 32rem);
+.carousel--page .carousel__viewport {
+  text-align: left;
 }
 
-.sector__kicker {
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
+.carousel--page .sector-switch {
+  margin-bottom: 2.25rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .sectors--single .sector__title[data-reveal] {
-    transition-delay: 0.1s;
-  }
+.carousel__slogan {
+  max-width: 88rem;
+  margin: 0.9rem auto 0;
+  padding: 0 1.5rem;
+  font-size: clamp(1rem, 0.4vw + 0.95rem, 1.25rem);
+  color: rgba(255, 255, 255, 0.85);
+}
 
-  .sectors--single .sector__text[data-reveal] {
-    transition-delay: 0.22s;
-  }
-
-  .sectors--single .sector__btn[data-reveal] {
-    transition-delay: 0.34s, 0.34s, 0s;
+@media (max-width: 640px) {
+  .carousel--page {
+    padding-top: 7rem;
   }
 }
