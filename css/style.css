@@ -3900,3 +3900,11 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
     padding-left: 15rem;
   }
 }
+
+/* The floating "Servicios" button looked out of place on phones/tablets:
+   the section menu only shows as the desktop side rail. */
+@media (max-width: 1199.98px) {
+  .page-rail {
+    display: none;
+  }
+}
