@@ -3720,3 +3720,183 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
     padding-top: 7rem;
   }
 }
+
+/* ---------------------------------------------------------------
+   Page rail (Gobierno / Empresas): side section menu on desktop,
+   floating "Servicios" button + popover list on smaller screens.
+   --------------------------------------------------------------- */
+
+.page-rail {
+  position: fixed;
+  z-index: 80;
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+}
+
+.page-rail.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-rail__list a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.page-rail__list a:hover {
+  color: var(--white);
+}
+
+.page-rail__list a.is-active {
+  color: var(--white);
+}
+
+.page-rail__dot {
+  flex: none;
+  position: relative;
+  z-index: 1;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: var(--ink);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.page-rail__list a:hover .page-rail__dot {
+  border-color: var(--white);
+}
+
+.page-rail__list a.is-active .page-rail__dot {
+  border-color: var(--red);
+  background: var(--red);
+  box-shadow: 0 0 0 4px rgba(221, 4, 41, 0.25);
+}
+
+/* Desktop: side rail */
+@media (min-width: 1200px) {
+  .page-rail {
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 1.1rem 1.25rem 1.1rem 1rem;
+    border: 1px solid var(--ink-line);
+    border-radius: 14px;
+    background: rgba(11, 11, 12, 0.72);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .page-rail.is-hidden {
+    transform: translate(-1rem, -50%);
+  }
+
+  .page-rail__toggle {
+    display: none;
+  }
+
+  .page-rail__list {
+    position: relative;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  /* vertical line joining the dots */
+  .page-rail__list::before {
+    content: "";
+    position: absolute;
+    left: calc(0.35rem - 1px);
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: var(--ink-line);
+  }
+}
+
+/* Tablet / phone: floating button bottom-left */
+@media (max-width: 1199.98px) {
+  .page-rail {
+    left: 1.25rem;
+    bottom: 1.5rem;
+  }
+
+  .page-rail.is-hidden {
+    transform: translateY(1rem);
+  }
+
+  .page-rail__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    height: 3.5rem;
+    padding: 0 1.3rem;
+    border: 1px solid var(--ink-line);
+    border-radius: 999px;
+    background: rgba(23, 24, 26, 0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+  }
+
+  .page-rail__toggle i {
+    color: var(--red-tint);
+  }
+
+  .page-rail__toggle[aria-expanded="true"] {
+    border-color: var(--red);
+  }
+
+  .page-rail__list {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 0.75rem);
+    display: grid;
+    gap: 0.25rem;
+    min-width: 15rem;
+    padding: 0.6rem;
+    border: 1px solid var(--ink-line);
+    border-radius: 14px;
+    background: rgba(23, 24, 26, 0.97);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.5rem);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  }
+
+  .page-rail.is-open .page-rail__list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .page-rail__list a {
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .page-rail__list a.is-active {
+    background: rgba(221, 4, 41, 0.14);
+  }
+}
+
+/* Leave room for the side rail where the centered content would otherwise
+   start under it (between 1200px and ~1800px wide). */
+@media (min-width: 1200px) and (max-width: 1799.98px) {
+  .page-rail ~ main .svc {
+    padding-left: 15rem;
+  }
+}

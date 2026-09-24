@@ -484,4 +484,55 @@
       }
     });
   });
+
+  // Page rail (Gobierno / Empresas): highlight the section in view, hide the
+  // rail once the reader is past the last service, and drive the mobile
+  // "Servicios" popover.
+  const rail = document.querySelector("[data-page-rail]");
+  if (rail) {
+    const links = [...rail.querySelectorAll("[data-rail-link]")];
+    const targets = links.map((a) => document.querySelector(a.getAttribute("href")));
+    const toggle = rail.querySelector("[data-rail-toggle]");
+    const last = targets[targets.length - 1];
+
+    const setOpen = (open) => {
+      rail.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    let railTicking = false;
+    const updateRail = () => {
+      railTicking = false;
+      const line = window.innerHeight * 0.4;
+      let active = 0;
+      targets.forEach((t, i) => {
+        if (t && t.getBoundingClientRect().top <= line) active = i;
+      });
+      links.forEach((a, i) => a.classList.toggle("is-active", i === active));
+      const past = last && last.getBoundingClientRect().bottom < line;
+      rail.classList.toggle("is-hidden", past);
+      if (past) setOpen(false);
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!railTicking) {
+        railTicking = true;
+        requestAnimationFrame(updateRail);
+      }
+    }, { passive: true });
+    window.addEventListener("resize", updateRail);
+    updateRail();
+
+    toggle.addEventListener("click", () => setOpen(!rail.classList.contains("is-open")));
+    links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("click", (e) => {
+      if (!rail.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && rail.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
 })();
