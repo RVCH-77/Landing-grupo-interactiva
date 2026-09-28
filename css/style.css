@@ -4012,6 +4012,9 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
   .page-rail.is-open .page-rail__list li:nth-child(3) { transition-delay: 0.13s; }
   .page-rail.is-open .page-rail__list li:nth-child(4) { transition-delay: 0.17s; }
   .page-rail.is-open .page-rail__list li:nth-child(5) { transition-delay: 0.21s; }
+  .page-rail.is-open .page-rail__list li:nth-child(6) { transition-delay: 0.25s; }
+  .page-rail.is-open .page-rail__list li:nth-child(7) { transition-delay: 0.29s; }
+  .page-rail.is-open .page-rail__list li:nth-child(8) { transition-delay: 0.33s; }
 
   .page-rail__list a {
     padding: 0.7rem 0.65rem;
