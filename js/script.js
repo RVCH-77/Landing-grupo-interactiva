@@ -546,7 +546,7 @@
     toggle?.addEventListener("click", () => setOpen(!rail.classList.contains("is-open")));
     links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("click", (e) => {
-      if (!rail.contains(e.target)) setOpen(false);
+      if (!rail.contains(e.target) || e.target === rail) setOpen(false);
     });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && rail.classList.contains("is-open")) {
