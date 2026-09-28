@@ -3895,9 +3895,9 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
 
 /* Leave room for the side rail where the centered content would otherwise
    start under it (between 1200px and ~1800px wide). */
-@media (min-width: 1200px) and (max-width: 1799.98px) {
+@media (min-width: 1200px) and (max-width: 1899.98px) {
   .page-rail ~ main .svc {
-    padding-left: 15rem;
+    padding-left: 17rem;
   }
 }
 
@@ -3908,3 +3908,36 @@ body:not(.is-in-hero) .hero__hex-overlay-left {
     display: none;
   }
 }
+
+/* Rail v2: carousel services listed one by one (they drive the slides),
+   grouped under small headings; no carousel arrows on desktop since the
+   rail replaces them. */
+.page-rail__group {
+  margin: 0 0 0.85rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red-tint);
+}
+
+.page-rail__list + .page-rail__group {
+  margin-top: 1.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--ink-line);
+}
+
+@media (min-width: 1200px) {
+  .page-rail__list {
+    gap: 0.95rem;
+  }
+
+  .page-rail ~ main .carousel--page .carousel__arrow {
+    display: none;
+  }
+
+  .page-rail ~ main .carousel--page .carousel__slide {
+    padding-left: 17rem;
+  }
+}
+

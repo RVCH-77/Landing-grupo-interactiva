@@ -216,6 +216,7 @@
 
     const update = () => {
       track.style.transform = `translateX(-${index * 100}%)`;
+      root.dispatchEvent(new CustomEvent("carousel:change", { detail: { index } }));
       slides.forEach((slide, i) => {
         slide.setAttribute("aria-hidden", i === index ? "false" : "true");
       });
@@ -272,6 +273,9 @@
       if (document.hidden) stopAutoplay();
       else startAutoplay();
     });
+
+    // Lets other widgets (the page rail) pick a slide.
+    root.addEventListener("carousel:goto", (e) => { goTo(e.detail.index); restartAutoplay(); });
 
     update();
     startAutoplay();
@@ -485,19 +489,23 @@
     });
   });
 
-  // Page rail (Gobierno / Empresas): highlight the section in view, hide the
-  // rail once the reader is past the last service, and drive the mobile
-  // "Servicios" popover.
+  // Page rail (Gobierno / Empresas): lists each carousel service plus the
+  // sections below. Carousel entries open their slide; the entry for the
+  // slide/section in view is highlighted; the rail hides past the last one.
   const rail = document.querySelector("[data-page-rail]");
   if (rail) {
     const links = [...rail.querySelectorAll("[data-rail-link]")];
-    const targets = links.map((a) => document.querySelector(a.getAttribute("href")));
+    const slideLinks = links.filter((a) => a.hasAttribute("data-rail-slide"));
+    const sectionLinks = links.filter((a) => !a.hasAttribute("data-rail-slide"));
+    const carousel = document.querySelector("#servicios[data-carousel]");
+    const sections = [carousel, ...sectionLinks.map((a) => document.querySelector(a.getAttribute("href")))];
     const toggle = rail.querySelector("[data-rail-toggle]");
-    const last = targets[targets.length - 1];
+    const last = sections[sections.length - 1];
+    let slideIndex = 0;
 
     const setOpen = (open) => {
       rail.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
+      toggle?.setAttribute("aria-expanded", String(open));
     };
 
     let railTicking = false;
@@ -505,14 +513,26 @@
       railTicking = false;
       const line = window.innerHeight * 0.4;
       let active = 0;
-      targets.forEach((t, i) => {
+      sections.forEach((t, i) => {
         if (t && t.getBoundingClientRect().top <= line) active = i;
       });
-      links.forEach((a, i) => a.classList.toggle("is-active", i === active));
+      const current = active === 0 ? slideLinks[slideIndex] : sectionLinks[active - 1];
+      links.forEach((a) => a.classList.toggle("is-active", a === current));
       const past = last && last.getBoundingClientRect().bottom < line;
       rail.classList.toggle("is-hidden", past);
       if (past) setOpen(false);
     };
+
+    carousel?.addEventListener("carousel:change", (e) => {
+      slideIndex = e.detail.index;
+      updateRail();
+    });
+
+    slideLinks.forEach((a) => a.addEventListener("click", () => {
+      carousel?.dispatchEvent(new CustomEvent("carousel:goto", {
+        detail: { index: parseInt(a.dataset.railSlide, 10) },
+      }));
+    }));
 
     window.addEventListener("scroll", () => {
       if (!railTicking) {
@@ -523,7 +543,7 @@
     window.addEventListener("resize", updateRail);
     updateRail();
 
-    toggle.addEventListener("click", () => setOpen(!rail.classList.contains("is-open")));
+    toggle?.addEventListener("click", () => setOpen(!rail.classList.contains("is-open")));
     links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("click", (e) => {
       if (!rail.contains(e.target)) setOpen(false);
@@ -531,7 +551,7 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && rail.classList.contains("is-open")) {
         setOpen(false);
-        toggle.focus();
+        toggle?.focus();
       }
     });
   }
